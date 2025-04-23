@@ -1,5 +1,5 @@
 # T1MES
-Python code to create a T1MES Phantom (See the publication (10.1186/s12968-016-0280-z)[https://doi.org/10.1186/s12968-016-0280-z] for more details).
+Python code to create a T1MES Phantom (See the publication [10.1186/s12968-016-0280-z](https://doi.org/10.1186/s12968-016-0280-z) for more details).
 
 ## Install
 
