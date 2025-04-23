@@ -15,7 +15,7 @@ Python code to create a T1MES Phantom (See the publication [10.1186/s12968-016-0
    conda create -n T1MES python=3.10
    conda activate T1MES
    ```
-4. Install the project in editable mode and its dependencies:
+4. Install the project and its dependencies:
    ```bash
    pip install .
    ```
