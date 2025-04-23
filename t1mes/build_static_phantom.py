@@ -137,8 +137,9 @@ def get_phantom_values(
     # Optional plot: display center slice using MRzeroCore
     if plot:
         mr0.VoxelGridPhantom.load(phantom_file).plot(plot_slice='center')
-    
-if __name__ == "__main__":
+
+
+def main():
     parser = argparse.ArgumentParser('Build Static T1MES Phantom')
     parser.add_argument('-B0', '--field_strength', help='Static Field strength in Tesla', type=float, default=1.5)
     parser.add_argument('-PD', help="Proton density for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., '1.0,0.5')")
@@ -174,3 +175,7 @@ if __name__ == "__main__":
         args.plot,
         T2dash_map,
     )
+
+
+if __name__ == "__main__":
+    main()
