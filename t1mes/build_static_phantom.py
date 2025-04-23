@@ -5,9 +5,9 @@ import numpy as np
 import MRzeroCore as mr0
 from mrtwin import b1field, b0field
 
-from generate_mask import create_t1mes_phantom_mask
+from t1mes.generate_mask import create_t1mes_phantom_mask
 
-JSON_PARAMETERS = 'T1MES_values.json'
+JSON_PARAMETERS = 't1mes/T1MES_values.json'
 
 
 def load_T2dash_map(value):
