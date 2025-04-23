@@ -1,3 +1,5 @@
+import argparse
+import os
 import json
 import numpy as np
 import MRzeroCore as mr0
@@ -6,6 +8,20 @@ from mrtwin import b1field, b0field
 from generate_mask import create_t1mes_phantom_mask
 
 JSON_PARAMETERS = 'T1MES_values.json'
+
+
+def load_T2dash_map(value):
+    try:
+        # Try converting to float
+        T2dash = float(value)
+        return T2dash
+    except ValueError:
+        # Not a float? Assume it's a .npy file path
+        if os.path.isfile(value) and value.endswith('.npy'):
+            T2dash = np.load(value)
+        else:
+            raise ValueError(f"T2′ must be a .npy file or a float. Found: {value}")
+
 
 def get_phantom_values(
     field_strength=1.5, 
@@ -21,12 +37,12 @@ def get_phantom_values(
 
     Args:
         field_strength (float): Field strength in Tesla. Only 1.5 or 3.0 supported.
-        PD (dict): Proton density values for 'tubes' and 'OuterMatrix'. Defaults to {1.0, 0.5}.
-        D (dict): Diffusion coefficient values for 'tubes' and 'OuterMatrix'. Defaults to {.0, 0.}.
+        PD (dict): Proton density for 'tubes' and 'OuterMatrix'. Defaults to {1.0, 0.5}.
+        D (dict): Diffusion coefficient for 'tubes' and 'OuterMatrix'. Defaults to {.0, 0.}.
         chi (dict): magnetic susceptibility for 'tubes' and 'OuterMatrix'. Defaults to {-9., -8.}.
         phantom_file (str): Output .npz file to save phantom data. Defaults to 'T1MES_default.npz'.
         plot (bool): If True, displays a center slice of the phantom using MRzeroCore.
-        T2dash_map (float or array): Value or array for T2* map (used by MRzero). Defaults to 30 ms.
+        T2dash_map (float or array): T2' map. Defaults to 30 ms.
     """
     
     # Set default phantom file name
@@ -98,7 +114,7 @@ def get_phantom_values(
     T2_map[mask == 10] = phantom_data['OuterMatrix']['T2']
     PD_map[mask == 10] = PD['OuterMatrix']
     chi_map[mask == 10] = chi['OuterMatrix']
-    D_map[mask == label] = D['OuterMatrix']
+    D_map[mask == 10] = D['OuterMatrix']
 
     # compute B0 and B1
     B0_map = b0field(chi_map, (-200,200), field_strength)
@@ -115,6 +131,7 @@ def get_phantom_values(
         D_map=D_map,  # Diffusion is set to 0 everywhere
         B0_map=B0_map,
         B1_map=B1_map,
+        FOV=(0.2, 0.2, 0.2),
     )
 
     # Optional plot: display center slice using MRzeroCore
@@ -122,5 +139,38 @@ def get_phantom_values(
         mr0.VoxelGridPhantom.load(phantom_file).plot(plot_slice='center')
     
 if __name__ == "__main__":
-    get_phantom_values(3)
+    parser = argparse.ArgumentParser('Build Static T1MES Phantom')
+    parser.add_argument('-B0', '--field_strength', help='Static Field strength in Tesla', type=float, default=1.5)
+    parser.add_argument('-PD', help="Proton density for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., '1.0,0.5')")
+    parser.add_argument('-chi', help="Susceptibility for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., -chi='-9.,-8.')"+\
+        "Use = followed by quotes to prevent negative values from being interpreted as flags.")
+    parser.add_argument('-D', help="Diffusion coefficient for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., '0.,0.')")
+    parser.add_argument('-p', '--phantom_file', help='Output MRzero phantom file (.npz)')
+    parser.add_argument('--plot', help="Whether to plot resulting phantom", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument('-T2dash', help="T2' value. Currently supports uniform T2′ only.", default=30e-3)
     
+    args = parser.parse_args()
+    locations = ['tubes', 'OuterMatrix']
+    if args.PD:
+        assert len(args.PD.split(','))==2, \
+            "You should provide two comma-separated values for 'tubes' and 'OuterMatrix' (e.g., 1.0,0.5)"
+        args.PD = dict(zip(locations, args.PD.split(',')))
+    if args.chi:
+        assert len(args.chi.split(','))==2, \
+            "You should provide two comma-separated values for 'tubes' and 'OuterMatrix' (e.g., ' -9.,-8.')"
+        args.chi = dict(zip(locations, args.chi.split(',')))
+    if args.D:
+        assert len(args.D.split(','))==2, \
+            "You should provide two comma-separated values for 'tubes' and 'OuterMatrix' (e.g., 0.,0.)"
+        args.D = dict(zip(locations, args.D.split(',')))
+    T2dash_map = load_T2dash_map(args.T2dash)
+    
+    get_phantom_values(
+        args.field_strength, 
+        args.PD,
+        args.chi,
+        args.D,
+        args.phantom_file,
+        args.plot,
+        T2dash_map,
+    )
