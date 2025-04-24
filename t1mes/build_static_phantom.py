@@ -177,8 +177,8 @@ def main():
     parser.add_argument('-p', '--phantom_file', help='Output MRzero phantom file (.npz)')
     parser.add_argument('--plot', help="Whether to plot resulting phantom", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument('-T2dash', help="T2' value. Currently supports uniform T2′ only.", default=30e-3)
-    parser.add_argument('--b0field_kwargs', help="Keyword arguments passed to `mrtwin.b0field()`.", type=parse_key_value, default={}, nargs='+')
-    parser.add_argument('--b1field_kwargs', help="Keyword arguments passed to `mrtwin.b1field()`.", type=parse_key_value, default={}, nargs='+')
+    parser.add_argument('--b0_kwargs', help="Keyword arguments passed to `mrtwin.b0field()`.", type=parse_key_value, default={}, nargs='+')
+    parser.add_argument('--b1_kwargs', help="Keyword arguments passed to `mrtwin.b1field()`.", type=parse_key_value, default={}, nargs='+')
     
     args = parser.parse_args()
     
@@ -209,8 +209,8 @@ def main():
         args.phantom_file,
         args.plot,
         T2dash_map,
-        dict(args.b0field_kwargs),
-        dict(args.b1field_kwargs),
+        dict(args.b0_kwargs),
+        dict(args.b1_kwargs),
     )
 
 
