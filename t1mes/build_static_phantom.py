@@ -24,6 +24,8 @@ def load_T2dash_map(value):
 
 
 def get_phantom_values(
+    FOV=(200, 200, 200),
+    resolution=(128,128,5),
     field_strength=1.5, 
     PD=None,
     chi=None, 
@@ -36,6 +38,8 @@ def get_phantom_values(
     Create and save a T1MES phantom using values from doi:10.1186/s12968-016-0280-z.
 
     Args:
+        FOV (list, tuple): field of view of the phantom [mm].
+        resolution (list, tuple): Resolution matrix.
         field_strength (float): Field strength in Tesla. Only 1.5 or 3.0 supported.
         PD (dict): Proton density for 'tubes' and 'OuterMatrix'. Defaults to {1.0, 0.5}.
         D (dict): Diffusion coefficient for 'tubes' and 'OuterMatrix'. Defaults to {.0, 0.}.
@@ -71,7 +75,7 @@ def get_phantom_values(
     phantom_data = json.load(open(JSON_PARAMETERS, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
 
     # Generate labeled mask (3D array with labels: 1–9 for tubes, 10 for resin)
-    mask = create_t1mes_phantom_mask()
+    mask = create_t1mes_phantom_mask(FOV, resolution)
 
     # Define tube labels based on field strength
     if field_strength == 1.5:
@@ -136,11 +140,13 @@ def get_phantom_values(
 
     # Optional plot: display center slice using MRzeroCore
     if plot:
-        mr0.VoxelGridPhantom.load(phantom_file).plot(plot_slice='center')
+        mr0.DynamicVoxelPhantom.load(phantom_file).plot(time_unit='ms', display_units=True)
 
 
 def main():
     parser = argparse.ArgumentParser('Build Static T1MES Phantom')
+    parser.add_argument('-FOV', help='Field of View of the phantom in (mm). Default to (200,200,200)', type=float, default=(200,200,200), nargs='*')
+    parser.add_argument('-resolution', help='Resolution of the phantom. Default to (128,128,5)', type=float, default=(128,128,5), nargs='*')
     parser.add_argument('-B0', '--field_strength', help='Static Field strength in Tesla', type=float, default=1.5)
     parser.add_argument('-PD', help="Proton density for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., '1.0,0.5')")
     parser.add_argument('-chi', help="Susceptibility for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., -chi='-9.,-8.')"+\
@@ -167,6 +173,8 @@ def main():
     T2dash_map = load_T2dash_map(args.T2dash)
     
     get_phantom_values(
+        args.FOV,
+        args.resolution,
         args.field_strength, 
         args.PD,
         args.chi,
