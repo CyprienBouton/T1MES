@@ -15,13 +15,17 @@ def create_t1mes_phantom_mask(
     
     Args:
        FOV (list, tuple): field of view of the phantom [mm].
-    """
-    """
-    Generate a 3D labeled mask of the T1MES phantom.
-    Returns a numpy array with:
-        - label 0: background
-        - label 10: resin body
-        - labels 1–9: individual tubes
+       resolution (list, tuple): Resolution matrix.
+       resin_size (list, tuple) Size of the Phantom [mm].
+       resin_radius (float): Radius used for the outer matrix corner [mm]. 
+       tube diameter (float): diameter of the tubes [mm].
+       tube spacing (float): Spacing between the center of neighbor tubes.
+    
+    Returns:
+        numpy array: Mask with the following labels:
+            - 0: background
+            - 10: resin body
+            - 1–9: individual tubes
     """
     # Convert physical sizes to voxel units
     voxel_size = np.array(FOV)/resolution
