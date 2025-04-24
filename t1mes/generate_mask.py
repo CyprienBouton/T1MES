@@ -64,7 +64,7 @@ def create_t1mes_phantom_mask(
         resin_xy |= circle
 
     # Extrude 2D shape across Z
-    mask[resin_xy, z0:z1] = 10
+    mask[resin_xy, z0:z1+1] = 10
 
     # Create 9 tubes (labels 1 to 9)
     tube_radius = tube_diameter / 2
