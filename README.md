@@ -39,5 +39,5 @@ Here are the available flags:
 | `-p`, `--phantom_file`    | Output file path for the generated phantom in `.npz` format. <br>**Example:** `-p phantom.npz` |
 | `--plot` / `--no-plot`    | Whether to visualize the generated phantom. <br>Use `--no-plot` to disable plotting. <br>**Default:** `True` |
 | `-T2dash`                 | T2′ value (in seconds). <br>**Example:** `-T2dash 0.03` <br>**Default:** `0.03` |
-| `--b0_kwargs`             | Additional key-value arguments passed to `mrtwin.b0field()`. <br>**Format:** `key=value` <br>**Example:** `--b0_kwargs offset=10` |
-| `--b1_kwargs`             | Additional key-value arguments passed to `mrtwin.b1field()`. <br>**Format:** `key=value` <br>**Example:** `--b1_kwargs scale=0.9` |
+| `--b0_kwargs`             | Additional key-value arguments passed to `mrtwin.b0field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b0_kwargs "b0range=(-500, 500)"` |
+| `--b1_kwargs`             | Additional key-value arguments passed to `mrtwin.b1field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b1_kwargs "b1range=(-0.8, 1.2)"` |
