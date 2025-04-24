@@ -157,6 +157,10 @@ def main():
     parser.add_argument('-T2dash', help="T2' value. Currently supports uniform T2′ only.", default=30e-3)
     
     args = parser.parse_args()
+    
+    assert len(args.FOV)==3, 'You must provide the FOV for the 3 dimensions'
+    assert len(args.resolution)==3, 'You must provide the resolution for the 3 dimensions'
+    
     locations = ['tubes', 'OuterMatrix']
     if args.PD:
         assert len(args.PD.split(','))==2, \
