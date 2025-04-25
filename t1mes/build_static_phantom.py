@@ -7,7 +7,7 @@ import MRzeroCore as mr0
 from mrtwin import b1field, b0field
 
 from t1mes.generate_mask import create_t1mes_phantom_mask
-from t1mes.convert_arguments import load_T2dash_map, parse_key_value
+from t1mes.convert_arguments import load_T2dash_map, parse_key_value, get_tubes_ID_from_B0
 
 JSON_PARAMETERS = 't1mes/T1MES_values.json'
 
@@ -70,21 +70,7 @@ def get_phantom_values(
     # Generate labeled mask (3D array with labels: 1–9 for tubes, 10 for resin)
     mask = create_t1mes_phantom_mask(FOV, resolution)
 
-    # Define tube labels based on field strength
-    if field_strength == 1.5:
-        tubes_ID = [
-            'I', 'F', 'C', 
-            'H', 'E', 'B',
-            'G', 'D', 'A',
-        ]
-    elif field_strength == 3.0:
-        tubes_ID = [
-            'I', 'M', 'C', 
-            'H', 'L', 'J',
-            'G', 'K', 'A',
-        ]
-    else:
-        raise ValueError('field strength must be 1.5 or 3')
+    tubes_ID = get_tubes_ID_from_B0(field_strength)
 
     # Initialize property maps
     T1_map = np.zeros_like(mask, dtype=float)
