@@ -2,6 +2,13 @@
 Python code to create a T1MES Phantom (See the publication [10.1186/s12968-016-0280-z](https://doi.org/10.1186/s12968-016-0280-z) for more details).<br>
 B0 and B1 field are generated with the package [mrtwin](https://infn-mri.github.io/mrtwin/) (see related github repository [here](https://github.com/INFN-MRI/mrtwin))
 
+# Table of Contents
+
+- [Install](#install)
+- [⚙️ Build Static T1MES Phantom](#️-build-static-t1mes-phantom)
+- [📈 Build Dynamic T1MES Phantom](#-build-dynamic-t1mes-phantom)
+- [🧪 Simulate Contrast Agent Concentration with Fermi Model](#-simulate-contrast-agent-concentration-with-fermi-model)
+
 ## Install
 
 1. Download the repository:
@@ -63,7 +70,7 @@ Here are the available flags:
 | `--b0_kwargs`             | Additional key-value arguments passed to `mrtwin.b0field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b0_kwargs "b0range=(-500, 500)"` |
 | `--b1_kwargs`             | Additional key-value arguments passed to `mrtwin.b1field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b1_kwargs "b1range=(-0.8, 1.2)"` |
 
-## 🧪 Simulate Contrast Agent Concentration with Fermi Model  
+## 🧪 Simulate Contrast Agent Concentration with Fermi Model
 Generate contrast agent concentrations over time using Fermi model with the command `t1mes_simulate_fermi`.<br>
 Here are the available flags:
 
