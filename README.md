@@ -83,3 +83,5 @@ Here are the available flags:
 | `--time_step`               | Time step for computing concentration [s]. <br>**Default:** `0.2` |
 | `--plot` / `--no-plot`      | Whether to plot the resulting concentration curves. <br>**Default:** `True` |
 | `-o`, `--output_file`       | Output `.npz` file to save computed concentrations. <br>**Example:** `-o fermi.npz` <br>**Default:** `concentration_fermi_default.npz` |
+
+![Fermi Gd concentrations](visuals/Fermi_Gd_concentration.png)
