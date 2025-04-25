@@ -242,7 +242,7 @@ def get_concentrations(
     return c_art, c_myo, c_inf
 
     
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Compute concentrations for blood, myocardium, and infarction using Fermi model.")
     parser.add_argument('-t_start','--time_start', type=float, default=0., help='Start time after injection [s]')
     parser.add_argument('-d','--duration', type=float, default=60.*5, help='Duration of the scan [s]. Default to 5 minutes,')
@@ -276,4 +276,7 @@ if __name__ == "__main__":
     )
     assert args.output_file.endswith('.npz'), 'Output file must end with (.npz)'
     np.savez_compressed(args.output_file, c_art=c_art, c_myo=c_myo, c_inf=c_inf)
-    
+
+
+if __name__ == "__main__":
+    main()
