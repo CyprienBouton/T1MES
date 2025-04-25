@@ -49,7 +49,7 @@ Here are the available flags:
 
 | **Flag**                  | **Description** |
 |---------------------------|-----------------|
-| `-c`, `--concentrations_file` | File containing contrast agent concentrations over time [mM] for injected tubes. <br>**Example:** `-c fermi.npz` <br>**Required:** |
+| `-c`, `--concentrations_file` | File containing contrast agent concentrations over time [mM] for injected tubes. <br>**Example:** `-c fermi.npz` <br>**Required:** `True`|
 | `-FOV`                    | Field of View of the phantom in millimeters. <br>**Example:** `-FOV 200 200 200` <br>**Default:** `(200, 200, 200)` |
 | `-r`, `--resolution`      | Resolution of the phantom (number of voxels per dimension). <br>**Example:** `-r 128 128 5` <br>**Default:** `(128, 128, 5)` |
 | `-B0`, `--field_strength` | Static field strength in Tesla. <br>**Example:** `-B0 1.5` <br>**Default:** `1.5` |
