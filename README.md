@@ -61,3 +61,24 @@ Here are the available flags:
 | `-T2dash`                 | T2′ value (in seconds). <br>**Example:** `-T2dash 0.03` <br>**Default:** `0.03` |
 | `--b0_kwargs`             | Additional key-value arguments passed to `mrtwin.b0field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b0_kwargs "b0range=(-500, 500)"` |
 | `--b1_kwargs`             | Additional key-value arguments passed to `mrtwin.b1field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b1_kwargs "b1range=(-0.8, 1.2)"` |
+
+## 🧪 Simulate Contrast Agent Concentration with Fermi Model  
+Generate contrast agent concentrations over time using Fermi model with the command `t1mes_simulate_fermi`.<br>
+Here are the available flags:
+
+| **Flag**                    | **Description** |
+|-----------------------------|-----------------|
+| `-t_start`, `--time_start`  | Start time after injection [s]. <br>**Default:** `0.0` |
+| `-d`, `--duration`          | Duration of the scan [s]. <br>**Default:** `300.0` (5 minutes) |
+| `-s`, `--nb_sampled`        | Number of time points to sample. <br>**Default:** `100` |
+| `--alpha_myo`               | Fermi model alpha parameter for myocardium. <br>**Default:** `0.01` |
+| `--beta_myo`                | Fermi model beta parameter for myocardium. <br>**Default:** `0.01` |
+| `--alpha_inf`               | Fermi model alpha parameter for infarction. <br>**Default:** `0.01` |
+| `--beta_inf`                | Fermi model beta parameter for infarction. <br>**Default:** `0.005` |
+| `--lv_myo_shift`            | Time shift between left ventricle and myocardium [s]. <br>**Default:** `3.0` |
+| `--lv_inf_shift`            | Time shift between left ventricle and infarction [s]. <br>**Default:** `3.0` |
+| `--contrast_dose`           | Contrast dose [mmol/kg]. <br>**Default:** `0.1` |
+| `--is_stress` / `--no-is_stress` | Flag to indicate stress condition. <br>**Default:** `True` |
+| `--time_step`               | Time step for computing concentration [s]. <br>**Default:** `0.2` |
+| `--plot` / `--no-plot`      | Whether to plot the resulting concentration curves. <br>**Default:** `True` |
+| `-o`, `--output_file`       | Output `.npz` file to save computed concentrations. <br>**Example:** `-o fermi.npz` <br>**Default:** `concentration_fermi_default.npz` |
