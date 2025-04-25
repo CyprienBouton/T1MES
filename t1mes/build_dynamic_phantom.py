@@ -77,7 +77,6 @@ def get_phantom_values(
     chi_map = np.zeros_like(mask, dtype=float)
     D_map = np.zeros_like(mask, dtype=float)
 
-    T1, T2 = get_T1_T2_over_time(concentrations_file, field_strength)
     # If T2dash_map is a float, fill a full array with that value
     if isinstance(T2dash_map, float):
         T2dash_map = np.full_like(T2_map, T2dash_map)
