@@ -133,7 +133,7 @@ def get_phantom_values(
 
 def main():
     parser = argparse.ArgumentParser('Build Static T1MES Phantom')
-    parser.add_argument('-c', '--concentrations_file', help='contrast agent concentrations for injected tube over time [mM]', required=True)
+    parser.add_argument('-c', '--concentrations_file', help='File containing contrast agent concentrations over time [mM] for injected tubes', required=True)
     parser.add_argument('-FOV', help='Field of View of the phantom in (mm). Default to (200,200,200)', type=float, default=(200,200,200), nargs='*')
     parser.add_argument('-r', '--resolution', help='Resolution of the phantom. Default to (128,128,5)', type=float, default=(128,128,5), nargs='*')
     parser.add_argument('-B0', '--field_strength', help='Static Field strength in Tesla', type=float, default=1.5)
