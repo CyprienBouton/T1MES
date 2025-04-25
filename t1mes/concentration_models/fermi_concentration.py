@@ -232,11 +232,11 @@ def get_concentrations(
     
     if plot:
         print(c_art.shape)
-        plt.plot(times_post, c_art)
-        plt.plot(times_post, c_myo)
+        plt.plot(times_post/60, c_art)
+        plt.plot(times_post/60, c_myo)
         plt.plot(times_post, c_inf)
         plt.legend(['Blood', 'Myocardium', 'Infarction'])
-        plt.xlabel('Time post-injection (seconds)', fontsize='large')
+        plt.xlabel('Time post-injection (minutes)', fontsize='large')
         plt.ylabel('Gadolinium concentration (mM)', fontsize='large')
         plt.show()
     return c_art, c_myo, c_inf
