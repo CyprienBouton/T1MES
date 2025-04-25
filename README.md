@@ -42,6 +42,7 @@ Here are the available flags:
 | `--b0_kwargs`             | Additional key-value arguments passed to `mrtwin.b0field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b0_kwargs "b0range=(-500, 500)"` |
 | `--b1_kwargs`             | Additional key-value arguments passed to `mrtwin.b1field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b1_kwargs "b1range=(-0.8, 1.2)"` |
 
+[Static Phantom](visuals/Static_T1MES.png)
 
 ##  📈 Build Dynamic T1MES Phantom
 Create a static phantom with the command `t1mes_build_dynamic`.<br>
