@@ -261,8 +261,11 @@ def main():
                         help='Output file to save concentration 9 (.npz). Default concentration_fermi_default.npz')
 
     args = parser.parse_args()
+    
+    times_post = np.linspace(args.time_start, args.time_start+args.duration, args.nb_sampled)
+    
     c_art, c_myo, c_inf = get_concentrations(
-        times_post=np.linspace(args.time_start, args.time_start+args.duration, args.nb_sampled),
+        times_post=times_post,
         alpha_myo=args.alpha_myo,
         beta_myo=args.beta_myo,
         alpha_inf=args.alpha_inf,
@@ -275,7 +278,7 @@ def main():
         plot=args.plot
     )
     assert args.output_file.endswith('.npz'), 'Output file must end with (.npz)'
-    np.savez_compressed(args.output_file, c_art=c_art, c_myo=c_myo, c_inf=c_inf)
+    np.savez_compressed(args.output_file, c_art=c_art, c_myo=c_myo, c_inf=c_inf, times_post=times_post)
 
 
 if __name__ == "__main__":

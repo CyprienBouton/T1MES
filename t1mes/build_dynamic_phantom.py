@@ -67,8 +67,8 @@ def get_phantom_values(
 
     # Generate labeled mask (3D array with labels: 1–9 for tubes, 10 for resin)
     mask = create_t1mes_phantom_mask(FOV, resolution)
-    T1, T2 = get_T1_T2_over_time(concentrations_file, field_strength)
-    time_frames = T1.shape[0]
+    T1, T2, times_post = get_T1_T2_over_time(concentrations_file, field_strength)
+    time_frames = len(times_post)
     
     # Initialize property maps
     T1_map = np.zeros((time_frames, *mask.shape))
@@ -123,7 +123,7 @@ def get_phantom_values(
         B0_map=B0_map,
         B1_map=B1_map,
         FOV=(0.2, 0.2, 0.2),
-        time_points=np.arange(time_frames),
+        time_points=times_post,
     )
 
     # Optional plot: display center slice using MRzeroCore

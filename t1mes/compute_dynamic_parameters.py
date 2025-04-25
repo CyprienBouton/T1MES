@@ -57,6 +57,7 @@ def get_T1_T2_over_time(
     Returns:
         np.ndarray: shape (time_frames, nb_label) T1 relaxation times for each label over time [ms].
         np.ndarray: shape (time_frames, nb_label) T2 relaxation times for each label over time [ms].
+        np.ndarray: shape (time_frames): timing of each concentration after the injection [s].
     """
     # Load T1MES phantom tissue parameters from JSON
     phantom_data = json.load(open(JSON_PARAMETERS, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
@@ -66,7 +67,7 @@ def get_T1_T2_over_time(
     tubes_ID_injected = [tube_ID for tube_ID in tubes_ID if 'post-GBCA' in phantom_data[tube_ID]['description']]
     
     # Initialize relaxation times 
-    concentrations = get_concentration_dict(concentrations_file, tubes_ID_injected, phantom_data)
+    concentrations, times_post = get_concentration_dict(concentrations_file, tubes_ID_injected, phantom_data)
     time_frames = len(concentrations['G'])
     nb_labels = 10
     T1_over_time = np.zeros((time_frames, nb_labels))
@@ -95,12 +96,12 @@ def get_T1_T2_over_time(
     T1_over_time[:, -1] = np.repeat( np.expand_dims(phantom_data['OuterMatrix']['T1'], axis=0), time_frames, axis=0)
     T2_over_time[:, -1] = np.repeat( np.expand_dims(phantom_data['OuterMatrix']['T2'], axis=0), time_frames, axis=0)
     
-    return T1_over_time, T2_over_time            
+    return T1_over_time, T2_over_time, times_post            
 
 
 def get_concentration_dict(concentrations_file, tubes_ID_injected, phantom_data):
     concentration_tubes = {}
-    c_art, c_myo, c_inf = np.load(concentrations_file).values()
+    c_art, c_myo, c_inf, times_post = np.load(concentrations_file).values()
     for tube_ID in tubes_ID_injected:
         if 'blood' in phantom_data[tube_ID]['description'].lower():
             concentration_tubes[tube_ID] = c_art
@@ -108,4 +109,4 @@ def get_concentration_dict(concentrations_file, tubes_ID_injected, phantom_data)
             concentration_tubes[tube_ID] = c_inf
         else:
             concentration_tubes[tube_ID] = c_myo
-    return concentration_tubes
+    return concentration_tubes, times_post
