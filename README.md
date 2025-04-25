@@ -1,5 +1,5 @@
 # T1MES
-Python code to create a T1MES Phantom (See the publication [10.1186/s12968-016-0280-z](https://doi.org/10.1186/s12968-016-0280-z) for more details).
+Python code to create a T1MES Phantom (See the publication [10.1186/s12968-016-0280-z](https://doi.org/10.1186/s12968-016-0280-z) for more details).<br>
 B0 and B1 field are generated with the package [mrtwin](https://infn-mri.github.io/mrtwin/) (see related github repository [here](https://github.com/INFN-MRI/mrtwin))
 
 ## Install
@@ -30,6 +30,26 @@ Here are the available flags:
 
 | **Flag**                  | **Description** |
 |---------------------------|-----------------|
+| `-FOV`                    | Field of View of the phantom in millimeters. <br>**Example:** `-FOV 200 200 200` <br>**Default:** `(200, 200, 200)` |
+| `-r`, `--resolution`      | Resolution of the phantom (number of voxels per dimension). <br>**Example:** `-r 128 128 5` <br>**Default:** `(128, 128, 5)` |
+| `-B0`, `--field_strength` | Static field strength in Tesla. <br>**Example:** `-B0 1.5` <br>**Default:** `1.5` |
+| `-PD`                     | Proton density values for `'tubes'` and `'OuterMatrix'`, comma-separated. <br>**Example:** `-PD 1.0,0.5` |
+| `-chi`                    | Susceptibility values for `'tubes'` and `'OuterMatrix'`, comma-separated. <br>Use `=` and quotes to avoid issues with negative signs. <br>**Example:** `-chi="-9.,-8."` |
+| `-D`                      | Diffusion coefficients for `'tubes'` and `'OuterMatrix'`, comma-separated. <br>**Example:** `-D 0.,0.` |
+| `-p`, `--phantom_file`    | Output file path for the generated phantom in `.npz` format. <br>**Example:** `-p phantom.npz` |
+| `--plot` / `--no-plot`    | Whether to visualize the generated phantom. <br>Use `--no-plot` to disable plotting. <br>**Default:** `True` |
+| `-T2dash`                 | T2′ value (in seconds). <br>**Example:** `-T2dash 0.03` <br>**Default:** `0.03` |
+| `--b0_kwargs`             | Additional key-value arguments passed to `mrtwin.b0field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b0_kwargs "b0range=(-500, 500)"` |
+| `--b1_kwargs`             | Additional key-value arguments passed to `mrtwin.b1field()`. <br>**Format:** `"key=value"` <br>**Example:** `--b1_kwargs "b1range=(-0.8, 1.2)"` |
+
+
+##  📈 Build Dynamic T1MES Phantom
+Create a static phantom with the command `t1mes_build_dynamic`.<br>
+Here are the available flags: 
+
+| **Flag**                  | **Description** |
+|---------------------------|-----------------|
+| `-c`, `--concentrations_file` | File containing contrast agent concentrations over time [mM] for injected tubes. <br>**Example:** `-c fermi.npz` <br>**Required:** |
 | `-FOV`                    | Field of View of the phantom in millimeters. <br>**Example:** `-FOV 200 200 200` <br>**Default:** `(200, 200, 200)` |
 | `-r`, `--resolution`      | Resolution of the phantom (number of voxels per dimension). <br>**Example:** `-r 128 128 5` <br>**Default:** `(128, 128, 5)` |
 | `-B0`, `--field_strength` | Static field strength in Tesla. <br>**Example:** `-B0 1.5` <br>**Default:** `1.5` |
