@@ -22,3 +22,5 @@ build-backend = "poetry.core.masonry.api"
 
 [project.scripts]
 t1mes_build_static = "t1mes.build_static_phantom:main"
+t1mes_build_dynamic = "t1mes.build_dynamic_phantom:main"
+t1mes_simulate_fermi = "t1mes.concentration_models.fermi_concentration:main"
