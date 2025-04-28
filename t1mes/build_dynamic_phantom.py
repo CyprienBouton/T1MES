@@ -1,3 +1,4 @@
+import json
 import argparse
 import numpy as np
 import MRzeroCore as mr0
@@ -8,6 +9,7 @@ from t1mes.convert_arguments import load_T2dash_map, parse_key_value, get_tubes_
 from t1mes.compute_dynamic_parameters import get_T1_T2_over_time
 
 
+JSON_PARAMETERS = 't1mes/T1MES_values.json'
 
 
 def get_phantom_values(
@@ -41,6 +43,8 @@ def get_phantom_values(
         b0field_kwargs (dict, optional): Keyword arguments passed to `mrtwin.b0field()`.
         b1field_kwargs (dict, optional): Keyword arguments passed to `mrtwin.b1field()`.
     """
+    # Load T1MES phantom tissue parameters from JSON
+    phantom_data = json.load(open(JSON_PARAMETERS, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
     
     # Set default phantom file name
     if phantom_file is None:
@@ -114,6 +118,11 @@ def get_phantom_values(
     if B1_map.ndim==2:
         B1_map = np.expand_dims(B1_map, -1)
     
+    # Add tissue masks
+    tubes_mask = {phantom_data[tube_id]['description']: mask==i+1  for i, tube_id in enumerate(tubes_ID)}
+    tubes_mask['OuterMatrix'] = mask==10
+    tubes_mask = {'tissue_'+k: v for k,v in tubes_mask.items()}
+
     # Save maps to compressed .npz file (convert T1, T2 to seconds)
     np.savez_compressed(
         phantom_file,
@@ -126,6 +135,7 @@ def get_phantom_values(
         B1_map=B1_map,
         FOV=(0.2, 0.2, 0.2),
         time_points=times_post,
+        **tubes_mask,
     )
 
     # Optional plot: display center slice using MRzeroCore

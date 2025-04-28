@@ -112,7 +112,9 @@ def get_phantom_values(
     B1_map = b1field(**b1field_kwargs)
     if B1_map.ndim==2:
         B1_map = np.expand_dims(B1_map, axis=2)
-    
+    tubes_mask = {phantom_data[tube_id]['description']: mask==i+1  for i, tube_id in enumerate(tubes_ID)}
+    tubes_mask['OuterMatrix'] = mask==10
+    tubes_mask = {'tissue_'+k: v for k,v in tubes_mask.items()}
     # Save maps to compressed .npz file (convert T1, T2 to seconds)
     np.savez_compressed(
         phantom_file,
@@ -124,6 +126,7 @@ def get_phantom_values(
         B0_map=B0_map,
         B1_map=B1_map,
         FOV=(0.2, 0.2, 0.2),
+        **tubes_mask,
     )
 
     # Optional plot: display center slice using MRzeroCore
