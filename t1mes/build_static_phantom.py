@@ -104,11 +104,14 @@ def get_phantom_values(
     b0field_kwargs['B0'] = field_strength
     if 'b0range' not in b0field_kwargs:
         b0field_kwargs['b0range'] = (-200,200) # Default range of -200/+200Hz
+    B0_map = b0field(**b0field_kwargs)
     
     # Compute B1
-    B0_map = b0field(**b0field_kwargs)
-    b1field_kwargs['shape'] = B0_map.shape
+    b1field_kwargs['shape'] = B0_map.squeeze().shape
+    b1field_kwargs['mask'] = PD_map.squeeze()>0
     B1_map = b1field(**b1field_kwargs)
+    if B1_map.ndim==2:
+        B1_map = np.expand_dims(B1_map, axis=2)
     
     # Save maps to compressed .npz file (convert T1, T2 to seconds)
     np.savez_compressed(
