@@ -4,7 +4,7 @@ import json
 
 import numpy as np
 import MRzeroCore as mr0
-from mrtwin import b1field, b0field
+from mrtwin import b1field, b0field, sensmap
 
 from t1mes.generate_mask import create_t1mes_phantom_mask
 from t1mes.convert_arguments import load_T2dash_map, parse_key_value, get_tubes_ID_from_B0
@@ -22,8 +22,10 @@ def get_phantom_values(
     phantom_file=None, 
     plot=True, 
     T2dash_map=3e-2,
+    ncoils=8,
     b0field_kwargs={},
     b1field_kwargs={},
+    sensmap_kwargs={},
 ):
     """
     Create and save a T1MES phantom using values from doi:10.1186/s12968-016-0280-z.
@@ -38,8 +40,10 @@ def get_phantom_values(
         phantom_file (str): Output .npz file to save phantom data. Defaults to 'T1MES_default.npz'.
         plot (bool): If True, displays a center slice of the phantom using MRzeroCore.
         T2dash_map (float or array): T2' map. Defaults to 30 ms.
+        ncoils (int): Number of receiver coils for sensitivity map generation. Defaults to 8.
         b0field_kwargs (dict, optional): Keyword arguments passed to `mrtwin.b0field()`.
         b1field_kwargs (dict, optional): Keyword arguments passed to `mrtwin.b1field()`.
+        sensmap_kwargs (dict, optional): Keyword arguments passed to `mrtwin.sensmap()`.
     """
     
     # Set default phantom file name
@@ -113,6 +117,10 @@ def get_phantom_values(
     if B1_map.ndim==2:
         B1_map = np.expand_dims(B1_map, axis=2)
     
+    # Compute sensitivity map
+    sensmap_kwargs['shape'] = (ncoils,) + PD_map.shape
+    coil_sens = sensmap(**sensmap_kwargs)
+    
     # Add tissue masks
     tubes_mask = {phantom_data[tube_id]['description']: mask==i+1  for i, tube_id in enumerate(tubes_ID)}
     tubes_mask['OuterMatrix'] = mask==10
@@ -129,6 +137,7 @@ def get_phantom_values(
         B0_map=B0_map,
         B1_map=B1_map,
         FOV=(0.2, 0.2, 0.2),
+        coil_sens=coil_sens,
         **tubes_mask,
     )
 
@@ -149,9 +158,11 @@ def main():
     parser.add_argument('-p', '--phantom_file', help='Output MRzero phantom file (.npz)')
     parser.add_argument('--plot', help="Whether to plot resulting phantom", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument('-T2dash', help="T2' value. Currently supports uniform T2′ only.", default=30e-3)
+    parser.add_argument('--ncoils', help="Number of receiver coils for sensitivity map generation. Default to 8", type=int, default=8)
     parser.add_argument('--b0_kwargs', help="Keyword arguments passed to `mrtwin.b0field()`.", type=parse_key_value, default={}, nargs='+')
     parser.add_argument('--b1_kwargs', help="Keyword arguments passed to `mrtwin.b1field()`.", type=parse_key_value, default={}, nargs='+')
-    
+    parser.add_argument('--sensmap_kwargs', help="Keyword arguments passed to `mrtwin.sensmap()`.", type=parse_key_value, default={}, nargs='+')
+
     args = parser.parse_args()
     
     assert len(args.FOV)==3, 'You must provide the FOV for the 3 dimensions'
@@ -181,8 +192,10 @@ def main():
         args.phantom_file,
         args.plot,
         T2dash_map,
+        args.ncoils,
         dict(args.b0_kwargs),
         dict(args.b1_kwargs),
+        dict(args.sensmap_kwargs),
     )
 
 
