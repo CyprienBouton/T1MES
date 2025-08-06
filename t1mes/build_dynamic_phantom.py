@@ -48,7 +48,7 @@ def get_phantom_values(
     
     # Set default phantom file name
     if phantom_file is None:
-        phantom_file = 'T1MES_default.npz'
+        phantom_file = 'T1MES_dynamic_default.npz'
 
     # Set default PD if not provided
     if PD is None:
@@ -140,7 +140,7 @@ def get_phantom_values(
 
     # Optional plot: display center slice using MRzeroCore
     if plot:
-        mr0.DynamicVoxelPhantom.load(phantom_file).plot(time_unit='ms', display_units=True)
+        mr0.DynamicVoxelPhantom.load(phantom_file).plot_dynamic(time_unit='ms', display_units=True)
 
 
 def main():
@@ -153,7 +153,7 @@ def main():
     parser.add_argument('-chi', help="Susceptibility for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., -chi='-9.,-8.')"+\
         "Use = followed by quotes to prevent negative values from being interpreted as flags.")
     parser.add_argument('-D', help="Diffusion coefficient for 'tubes' and 'OuterMatrix' as comma-separated values (e.g., '0.,0.')")
-    parser.add_argument('-p', '--phantom_file', help='Output MRzero phantom file (.npz)')
+    parser.add_argument('-p', '--phantom_file', help="Output MRzero phantom file (.npz). Default to 'T1MES_dynamic_default.npz'")
     parser.add_argument('--plot', help="Whether to plot resulting phantom", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument('-T2dash', help="T2' value. Currently supports uniform T2′ only.", default=30e-3)
     parser.add_argument('--b0_kwargs', help="Keyword arguments passed to `mrtwin.b0field()`.", type=parse_key_value, default={}, nargs='+')
