@@ -20,6 +20,9 @@ mrtwin = "0.1.3"
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.setuptools]
+packages = ["t1mes"]
+
 [project.scripts]
 t1mes_build_static = "t1mes.build_static_phantom:main"
 t1mes_build_dynamic = "t1mes.build_dynamic_phantom:main"
