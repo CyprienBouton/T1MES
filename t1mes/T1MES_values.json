@@ -1,99 +1,155 @@
 {
 "A": {
     "description": "Short post-GBCA blood",
+    "PD": 1,
     "T1": 269,
     "T2": 155,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 0.244,
     "NiCl2": 5.547
 },
 "B": {
     "description": "Normal native blood 1.5 T",
+    "PD": 1,
     "T1": 1515,
     "T2": 243,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 0.373,
     "NiCl2": 0.362
 },
 "C": {
     "description": "Long post-GBCA blood",
+    "PD": 1,
     "T1": 475,
     "T2": 189,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 0.325,
     "NiCl2": 2.860
 },
 "D": {
     "description": "Short native myocardium 1.5 T",
+    "PD": 1,
     "T1": 772,
     "T2": 48,
+    "T2dash": 30,
+    "D": 0, 
+    "chi": -9,
     "agarose": 2.214,
     "NiCl2": 1.231
 },
 "E": {
     "description": "Long native myocardium 1.5 T",
+    "PD": 1,
     "T1": 1260,
     "T2": 50,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.279,
     "NiCl2": 0.461
 },
 "F": {
     "description": "Medium native myocardium 1.5 T",
+    "PD": 1,
     "T1": 1037,
     "T2": 48,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.256,
     "NiCl2": 0.725
 },
 "G": {
     "description": "Short post-GBCA myocardium",
+    "PD": 1,
     "T1": 284,
     "T2": 43,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.174,
     "NiCl2": 4.510
 },
 "H": {
     "description": "Long post-GBCA myocardium",
+    "PD": 1,
     "T1": 525,
     "T2": 43,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.377,
     "NiCl2": 2.103
 },
 "I": {
     "description": "Medium post-GBCA myocardium",
+    "PD": 1,
     "T1": 405,
     "T2": 42,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.306,
     "NiCl2": 2.942
 },
 "J": {
     "description": "Normal native blood 3 T",
+    "PD": 1,
     "T1": 1875,
     "T2": 231,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 0.388,
     "NiCl2": 0.180
 },
 "K": {
     "description": "Short native myocardium 3 T",
+    "PD": 1,
     "T1": 953,
     "T2": 49,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.245,
     "NiCl2": 0.858
 },
 "L": {
     "description": "Long native myocardium 3 T",
+    "PD": 1,
     "T1": 1378,
     "T2": 49,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.289,
     "NiCl2": 0.342
 },
 "M": {
     "description": "Medium native myocardium 3 T",
+    "PD": 1,
     "T1": 1183,
     "T2": 48,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -9,
     "agarose": 2.273,
     "NiCl2": 0.531
 },
 "OuterMatrix": {
     "description": "Outer matrix gel fill",
+    "PD": 0.5,
     "T1": 846,
     "T2": 141,
+    "T2dash": 30,
+    "D": 0,
+    "chi": -8,
     "agarose": 0.780,
     "NiCl2": 1.155
 }
