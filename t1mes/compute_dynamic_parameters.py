@@ -43,6 +43,7 @@ def get_T1_T2_over_time(
     times_post=None,
     r1=4.1e-3,
     r2=4.6e-3,
+    param_json=JSON_PARAMETERS,
     ):
     """Get T1 and T2 relaxation times by label over time.
 
@@ -62,7 +63,7 @@ def get_T1_T2_over_time(
         np.ndarray: shape (time_frames): timing of each concentration after the injection [s].
     """
     # Load T1MES phantom tissue parameters from JSON
-    phantom_data = json.load(open(JSON_PARAMETERS, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
+    phantom_data = json.load(open(param_json, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
             
     # Define tube labels based on field strength
     tubes_ID = get_tubes_ID_from_B0(field_strength)
@@ -71,7 +72,7 @@ def get_T1_T2_over_time(
     # Initialize relaxation times 
     if concentrations_file is None:
         assert times_post is not None, 'If the concentration are note provided, times_post must be provided'
-        return read_dynamic_concentration(tubes_ID, times_post)
+        return read_dynamic_concentration(tubes_ID, times_post, param_json=param_json)
     concentrations, times_post = get_concentration_dict(concentrations_file, tubes_ID_injected, phantom_data)
     time_frames = len(concentrations['G'])
     T1_over_time = {tissue_ID: np.zeros(time_frames) for tissue_ID in tubes_ID}
@@ -116,12 +117,13 @@ def get_concentration_dict(concentrations_file, tubes_ID_injected, phantom_data)
     return concentration_tubes, times_post
 
 
-def read_dynamic_concentration(tubes_ID, times_post):
+def read_dynamic_concentration(tubes_ID, times_post, param_json=JSON_PARAMETERS):
     """Read dynamic concentration from JSON file.
 
     Args:
         tubes_ID (list): list of tube IDs to read.
         times_post (np.ndarray): Timing of each concentration after the injection [s].
+        param_json (str): path to JSON file containing phantom parameters.
 
     Returns:
         dict: T1 relaxation times (shape time_frames) for each label over time [ms].
@@ -129,7 +131,7 @@ def read_dynamic_concentration(tubes_ID, times_post):
         np.ndarray: shape (time_frames): timing of each concentration after the injection [s].
     """
     # Load T1MES phantom tissue parameters from JSON
-    phantom_data = json.load(open(JSON_PARAMETERS, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
+    phantom_data = json.load(open(param_json, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
             
     time_frames = len(times_post)
     T1_over_time = {tissue_ID: np.zeros(time_frames) for tissue_ID in tubes_ID}
