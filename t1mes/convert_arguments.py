@@ -51,8 +51,6 @@ def complete_imaging_args(args):
 
 def parse_key_value_or_json_file(arg):
     # Handle single argument that is a potential JSON file
-    print(os.path.isfile(arg))
-    print(type(arg))
     if os.path.isfile(arg):
         try:
             with open(arg, 'r') as f:
