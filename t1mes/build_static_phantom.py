@@ -90,9 +90,11 @@ def get_phantom_values(
         B1_map = np.expand_dims(B1_map, axis=2)
     
     # Compute sensitivity map
-    sensmap_kwargs['shape'] = (ncoils,) + PD_map.shape
+    sensmap_kwargs['shape'] = (ncoils,) + PD_map.squeeze().shape
     coil_sens = sensmap(**sensmap_kwargs)
-    
+    # Ensure coil_sens has 4 dimensions
+    if coil_sens.ndim == 3:
+        coil_sens = np.expand_dims(coil_sens, axis=-1)
     # Add tissue masks
     tubes_mask = {phantom_data[tube_id]['description']: mask==i+1  for i, tube_id in enumerate(tubes_ID)}
     tubes_mask['OuterMatrix'] = mask==10
