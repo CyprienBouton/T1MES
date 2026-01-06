@@ -2,8 +2,8 @@
 "A": {
     "description": "Short post-GBCA blood",
     "PD": 1,
-    "T1": 269,
-    "T2": 155,
+    "T1": 250,
+    "T2": 133,
     "T2dash": 30,
     "D": 0,
     "chi": -9,
@@ -13,7 +13,7 @@
 "B": {
     "description": "Normal native blood 1.5 T",
     "PD": 1,
-    "T1": 1515,
+    "T1": 1489,
     "T2": 243,
     "T2dash": 30,
     "D": 0,
@@ -24,8 +24,8 @@
 "C": {
     "description": "Long post-GBCA blood",
     "PD": 1,
-    "T1": 475,
-    "T2": 189,
+    "T1": 451,
+    "T2": 167,
     "T2dash": 30,
     "D": 0,
     "chi": -9,
@@ -35,7 +35,7 @@
 "D": {
     "description": "Short native myocardium 1.5 T",
     "PD": 1,
-    "T1": 772,
+    "T1": 803,
     "T2": 48,
     "T2dash": 30,
     "D": 0, 
@@ -46,7 +46,7 @@
 "E": {
     "description": "Long native myocardium 1.5 T",
     "PD": 1,
-    "T1": 1260,
+    "T1": 1333,
     "T2": 50,
     "T2dash": 30,
     "D": 0,
@@ -57,7 +57,7 @@
 "F": {
     "description": "Medium native myocardium 1.5 T",
     "PD": 1,
-    "T1": 1037,
+    "T1": 1090,
     "T2": 48,
     "T2dash": 30,
     "D": 0,
@@ -68,7 +68,7 @@
 "G": {
     "description": "Short post-GBCA myocardium",
     "PD": 1,
-    "T1": 284,
+    "T1": 294,
     "T2": 43,
     "T2dash": 30,
     "D": 0,
@@ -79,7 +79,7 @@
 "H": {
     "description": "Long post-GBCA myocardium",
     "PD": 1,
-    "T1": 525,
+    "T1": 555,
     "T2": 43,
     "T2dash": 30,
     "D": 0,
@@ -90,7 +90,7 @@
 "I": {
     "description": "Medium post-GBCA myocardium",
     "PD": 1,
-    "T1": 405,
+    "T1": 424,
     "T2": 42,
     "T2dash": 30,
     "D": 0,
@@ -101,7 +101,7 @@
 "J": {
     "description": "Normal native blood 3 T",
     "PD": 1,
-    "T1": 1875,
+    "T1": 1872,
     "T2": 231,
     "T2dash": 30,
     "D": 0,
@@ -112,7 +112,7 @@
 "K": {
     "description": "Short native myocardium 3 T",
     "PD": 1,
-    "T1": 953,
+    "T1": 1010,
     "T2": 49,
     "T2dash": 30,
     "D": 0,
@@ -123,7 +123,7 @@
 "L": {
     "description": "Long native myocardium 3 T",
     "PD": 1,
-    "T1": 1378,
+    "T1": 1499,
     "T2": 49,
     "T2dash": 30,
     "D": 0,
@@ -134,7 +134,7 @@
 "M": {
     "description": "Medium native myocardium 3 T",
     "PD": 1,
-    "T1": 1183,
+    "T1": 1260,
     "T2": 48,
     "T2dash": 30,
     "D": 0,
