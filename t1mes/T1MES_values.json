@@ -1,7 +1,7 @@
 {
 "A": {
     "description": "Short post-GBCA blood",
-    "PD": 1,
+    "PD": 100,
     "T1": 250,
     "T2": 133,
     "T2dash": 30,
@@ -12,7 +12,7 @@
 },
 "B": {
     "description": "Normal native blood 1.5 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1489,
     "T2": 243,
     "T2dash": 30,
@@ -23,7 +23,7 @@
 },
 "C": {
     "description": "Long post-GBCA blood",
-    "PD": 1,
+    "PD": 100,
     "T1": 451,
     "T2": 167,
     "T2dash": 30,
@@ -34,7 +34,7 @@
 },
 "D": {
     "description": "Short native myocardium 1.5 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 803,
     "T2": 48,
     "T2dash": 30,
@@ -45,7 +45,7 @@
 },
 "E": {
     "description": "Long native myocardium 1.5 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1333,
     "T2": 50,
     "T2dash": 30,
@@ -56,7 +56,7 @@
 },
 "F": {
     "description": "Medium native myocardium 1.5 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1090,
     "T2": 48,
     "T2dash": 30,
@@ -67,7 +67,7 @@
 },
 "G": {
     "description": "Short post-GBCA myocardium",
-    "PD": 1,
+    "PD": 100,
     "T1": 294,
     "T2": 43,
     "T2dash": 30,
@@ -78,7 +78,7 @@
 },
 "H": {
     "description": "Long post-GBCA myocardium",
-    "PD": 1,
+    "PD": 100,
     "T1": 555,
     "T2": 43,
     "T2dash": 30,
@@ -89,7 +89,7 @@
 },
 "I": {
     "description": "Medium post-GBCA myocardium",
-    "PD": 1,
+    "PD": 100,
     "T1": 424,
     "T2": 42,
     "T2dash": 30,
@@ -100,7 +100,7 @@
 },
 "J": {
     "description": "Normal native blood 3 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1872,
     "T2": 231,
     "T2dash": 30,
@@ -111,7 +111,7 @@
 },
 "K": {
     "description": "Short native myocardium 3 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1010,
     "T2": 49,
     "T2dash": 30,
@@ -122,7 +122,7 @@
 },
 "L": {
     "description": "Long native myocardium 3 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1499,
     "T2": 49,
     "T2dash": 30,
@@ -133,7 +133,7 @@
 },
 "M": {
     "description": "Medium native myocardium 3 T",
-    "PD": 1,
+    "PD": 100,
     "T1": 1260,
     "T2": 48,
     "T2dash": 30,
@@ -144,7 +144,7 @@
 },
 "OuterMatrix": {
     "description": "Outer matrix gel fill",
-    "PD": 0.5,
+    "PD": 50,
     "T1": 846,
     "T2": 141,
     "T2dash": 30,
