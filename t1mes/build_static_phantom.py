@@ -118,10 +118,6 @@ def get_phantom_values(
     # Optional plot: display center slice using MRzeroCore
     if plot:
         phantom = mr0.VoxelGridPhantom.load(phantom_file)
-        if 'time_unit' not in plot_kwargs:
-            plot_kwargs['time_unit'] = 'ms'
-        if 'display_units' not in plot_kwargs:
-            plot_kwargs['display_units'] = True
         phantom.plot(**plot_kwargs)
 
 
