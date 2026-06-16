@@ -13,7 +13,7 @@ dependencies = [
 
 [tool.poetry.dependencies]
 python = "^3.10" 
-MRzeroCore = {git = "https://github.com/CyprienBouton/MRzero-Core.git", branch = "T1_T2_variable"}
+mrzerocore = "0.4.11"
 mrtwin = "0.1.3"
 
 [build-system]
