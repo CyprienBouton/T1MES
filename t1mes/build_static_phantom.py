@@ -24,6 +24,7 @@ def get_phantom_values(
     phantom_file='T1MES_default.npz',
     plot=True, 
     plot_kwargs={},
+    rotate_LR=False,
 ):
     """
     Create and save a T1MES phantom using values from doi:10.1186/s12968-016-0280-z.
@@ -40,12 +41,17 @@ def get_phantom_values(
         phantom_file (str): Path to save the generated phantom .npz file. Defaults to 'T1MES_default.npz'.
         plot (bool): If True, displays the phantom using MRzeroCore. Defaults to True.
         plot_kwargs (dict, optional): Keyword arguments passed to `mr0.DynamicVoxelPhantom.plot()`.
+        rotate_LR (bool): Rotate the phantom by 90 degrees in the LR plane.
     """
     # Load T1MES phantom tissue parameters from JSON
     phantom_data = json.load(open(param_json, 'r'))  # Values from Bruker minispec (1.4 T, 22°C)
 
     # Generate labeled mask (3D array with labels: 1–9 for tubes, 10 for resin)
     mask = create_t1mes_phantom_mask(FOV, matrix)
+    
+    # Optional 90° rotation
+    if rotate_LR:
+        mask = np.rot90(mask, k=1, axes=(0, 1))
 
     tubes_ID = get_tubes_ID_from_B0(field_strength)
 
@@ -135,6 +141,7 @@ def main():
     imaging_group.add_argument('-m', '--matrix', type=int, nargs=3, help='Matrix size. Default to 200x200x10')
     imaging_group.add_argument('-B0', '--field_strength', type=float, help='Main magnetic field strength in Tesla. Default to 1.5', default=1.5)
     imaging_group.add_argument('--ncoils', type=int, help='Number of receiver coils. Default to 8', default=8)
+    imaging_group.add_argument('--LR', action=argparse.BooleanOptionalAction, help="Whether to rotate the phantom by 90 degrees. Default to False", default=False)
 
     # Phantom Configuration
     phantom_group = parser.add_argument_group("Phantom Configuration")
@@ -177,6 +184,7 @@ def main():
         phantom_file=args.phantom_file,
         plot=args.plot,
         plot_kwargs=args.plot_kwargs,
+        rotate_LR=args.LR,
     )
 
 
