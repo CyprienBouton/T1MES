@@ -1,1 +1,19 @@
+# Experiment-specific parameter files (see configs/README.md).
+# Kept out of version control until it is decided whether they can be shared.
+configs/T1MES_values_*.json
 t1mes/T1MES_values_*.json
+
+# Generated phantoms / concentration curves / animations
+*.npz
+*.gif
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+.ipynb_checkpoints/

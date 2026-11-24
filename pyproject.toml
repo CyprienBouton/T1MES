@@ -1,29 +1,51 @@
-[project]
-name = "T1MES"
-version = "0.1.0"
-description = "Create a T1MES Phantom for MRzero"
-authors = [
-    {name = "Cyprien Bouton cyprien.bouton@creatis.insa-lyon.fr"}
-]
-license = {text = "MIT"}
-readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-]
-
-[tool.poetry.dependencies]
-python = "^3.10" 
-MRzeroCore = {git = "https://github.com/CyprienBouton/MRzero-Core.git", branch = "T1_T2_variable"}
-mrtwin = "0.1.3"
-
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["t1mes"]
+[project]
+name = "t1mes"
+version = "0.1.0"
+description = "Digital T1MES phantom (cardiac T1 mapping QA phantom) for the MRzero MRI simulator"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Cyprien Bouton", email = "cyprien.bouton@creatis.insa-lyon.fr" },
+]
+requires-python = ">=3.10"
+keywords = ["MRI", "phantom", "T1 mapping", "T1MES", "MRzero", "simulation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "numpy>=1.22",
+    "scipy>=1.7",
+    "matplotlib>=3.5",
+    "mrtwin>=0.1.3,<0.2",
+    "MRzeroCore>=1.6.1",
+]
+
+[project.optional-dependencies]
+# DynamicVoxelPhantom (dynamic phantom loading / plotting / simulation) is only
+# available in this MRzeroCore fork. Direct URL references are accepted by pip
+# but not by PyPI uploads.
+dynamic = [
+    "MRzeroCore @ git+https://github.com/CyprienBouton/MRzero-Core.git@T1_T2_variable_v1.6",
+]
+
+[project.urls]
+Repository = "https://github.com/CyprienBouton/T1MES"
+"T1MES publication" = "https://doi.org/10.1186/s12968-016-0280-z"
 
 [project.scripts]
 t1mes_build_static = "t1mes.build_static_phantom:main"
 t1mes_build_dynamic = "t1mes.build_dynamic_phantom:main"
 t1mes_simulate_fermi = "t1mes.concentration_models.fermi_concentration:main"
+
+[tool.setuptools.packages.find]
+include = ["t1mes*"]
+
+[tool.setuptools.package-data]
+t1mes = ["T1MES_values.json"]
